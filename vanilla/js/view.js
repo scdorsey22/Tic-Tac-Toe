@@ -1,10 +1,12 @@
+import Store from "./store.js";
+
 export default class View {
   $ = {};
-  $$ = {}
+  $$ = {};
 
   constructor() {
     this.$.menu = this.#qs('[data-id="menu"]');
-    this.$.menuBtn = this.#qs('[data-id="menu-btn"]')
+    this.$.menuBtn = this.#qs('[data-id="menu-btn"]');
     this.$.menuItems = this.#qs('[data-id="menu-popover"]');
     this.$.resetBtn = this.#qs('[data-id="reset-btn"]');
     this.$.newRoundBtn = this.#qs('[data-id="new-round-btn"]');
@@ -16,69 +18,63 @@ export default class View {
     this.$$.squares = this.#qsAll('[data-id="square"]');
 
     //UI-only event listeners
-    this.$.menuBtn.addEventListener('click', (event) => {
-        this.#toggleMenu()
-    }) 
+    this.$.menuBtn.addEventListener("click", (event) => {
+      this.#toggleMenu();
+    });
   }
-
 
   //Register all the event listeners
 
-
   bindGameResetEvent(handler) {
-      this.$.resetBtn.addEventListener('click', handler)
+    this.$.resetBtn.addEventListener("click", handler);
   }
 
   bindNewRoundEvent(handler) {
     this.$.newRoundBtn.addEventListener("click", handler);
-
   }
 
   bindPlayerMoveEvent(handler) {
     this.$$.squares.forEach((square) => {
-        square.addEventListener('click', handler)
-    })
+      square.addEventListener("click", () => handler(square));
+    });
   }
 
   //DOM helper mehtods
+  
+
+  openModal(message) {
+      this.$.modal.classList.remove('hidden')
+      this.$.modalText.innerText = message
+  }
 
   #toggleMenu() {
-    this.$.menuItems.classList.toggle('hidden')
-    this.$.menuBtn.classList.toggle('border')
+    this.$.menuItems.classList.toggle("hidden");
+    this.$.menuBtn.classList.toggle("border");
 
-    const icon = this.$.menuBtn.querySelector('i')
+    const icon = this.$.menuBtn.querySelector("i");
 
-    icon.classList.toggle('fa-chevron-down')
-    icon.classList.toggle('fa-chevron-up')
+    icon.classList.toggle("fa-chevron-down");
+    icon.classList.toggle("fa-chevron-up");
   }
 
   handlePlayerMove(squareEl, player) {
+    const icon = document.createElement("i");
 
-    const icon = document.createElement('i')
+    icon.classList.add("fa-solid", player.iconClass, player.colorClass);
 
-    icon.classList.add(
-        'fa-solid', 
-        player === 1 ? 'fa-x' : 'fa-o',
-        player === 1 ? 'yellow' : 'turqouise')
-        
-    squareEl.replaceChildren(icon)
-
+    squareEl.replaceChildren(icon);
   }
 
   setTurnIndicator(player) {
-      const icon = document.createElement('i')
-      const label = document.createElement('p')
+    const icon = document.createElement("i");
+    const label = document.createElement("p");
 
-      this.$.turn.classList.add(player === 1 ? 'yellow' : 'turquoise')
-      this.$.turn.classList.remove(player === 1 ? 'turquoise' : 'yellow')
+    icon.classList.add("fa-solid", player.colorClass, player.iconClass);
 
+    label.classList.add(player.colorClass);
+    label.innerText = `${player.name}, you're up!`;
 
-      icon.classList.add('fa-solid', player === 1 ? 'fa-x' : 'fa-o')
-
-      label.innerText = player === 1 ? "Player 1, you're up!" : "Player 2, you're up!"
-
-      this.$.turn.replaceChildren(icon, label)
-   
+    this.$.turn.replaceChildren(icon, label);
   }
 
   /**
@@ -87,18 +83,20 @@ export default class View {
    */
 
   #qs(selector, parent) {
-      const el = parent ? parent.querySelector(selector) : document.querySelector(selector)
+    const el = parent
+      ? parent.querySelector(selector)
+      : document.querySelector(selector);
 
-      if(!el) throw new Error ('Could not find element')
+    if (!el) throw new Error("Could not find element");
 
-      return el
+    return el;
   }
 
   #qsAll(selector) {
-      const elList = document.querySelectorAll(selector)
+    const elList = document.querySelectorAll(selector);
 
-      if(!elList) throw new Error('Could not find elements')
+    if (!elList) throw new Error("Could not find elements");
 
-      return elList
+    return elList;
   }
 }
