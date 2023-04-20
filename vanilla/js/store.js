@@ -64,6 +64,10 @@ export default class Store {
 
     }
 
+    reset() {
+        this.#saveState(initialValue)
+    }
+
     #getState() {
         return this.#state
     }

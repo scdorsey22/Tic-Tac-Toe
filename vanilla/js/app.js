@@ -173,8 +173,10 @@ function init() {
 
 
     view.bindGameResetEvent((event) => {
-        console.log('Reset event')
-        console.log(event)
+        view.closeAll()
+        store.reset()
+        view.clearMoves()
+        view.setTurnIndicator(store.game.currentPlayer)
     })
 
     view.bindNewRoundEvent((event) => {
