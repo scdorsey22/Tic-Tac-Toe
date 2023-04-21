@@ -14,7 +14,11 @@ export default class View {
     this.$.modalText = this.#qs('[data-id="modal-text"]');
     this.$.modalBtn = this.#qs('[data-id="modal-btn"]');
     this.$.turn = this.#qs('[data-id="turn"]');
+    this.$.p1Wins = this.#qs('[data-id="p1-wins"]');
+    this.$.p2Wins = this.#qs('[data-id="p2-wins"]');
+    this.$.ties = this.#qs('[data-id="ties"]');
 
+    // Element lists
     this.$$.squares = this.#qsAll('[data-id="square"]');
 
     //UI-only event listeners
@@ -27,7 +31,7 @@ export default class View {
 
   bindGameResetEvent(handler) {
     this.$.resetBtn.addEventListener("click", handler);
-    this.$.modalBtn.addEventListener('click', handler);
+    this.$.modalBtn.addEventListener("click", handler);
   }
 
   bindNewRoundEvent(handler) {
@@ -40,40 +44,52 @@ export default class View {
     });
   }
 
-
-
   //DOM helper mehtods
-  
+
+  updateScoreboard(p1Wins, p2Wins, ties) {
+    this.$.p1Wins.innerText = `${p1Wins} wins`;
+    this.$.p2Wins.innerText = `${p2Wins} wins`;
+    this.$.ties.innerText = `${ties} ties`;
+  }
 
   openModal(message) {
-      this.$.modal.classList.remove('hidden')
-      this.$.modalText.innerText = message
+    this.$.modal.classList.remove("hidden");
+    this.$.modalText.innerText = message;
   }
 
   closeAll() {
-    this.#closeModal()
-    this.#closeMenu()
-
+    this.#closeModal();
+    this.#closeMenu();
   }
 
   clearMoves() {
-    this.$$.squares.forEach(square => {
+    this.$$.squares.forEach((square) => {
       square.replaceChildren();
+    });
+  }
+
+  initializeMoves(moves) {
+    this.$$.squares.forEach(square => {
+      const existingMove = moves.find(move => move.squareId === +square.id)
+
+      if (existingMove) {
+        this.handlePlayerMove(square, existingMove.player)
+      }
     })
   }
 
   #closeModal() {
-    this.$.modal.classList.add('hidden')
+    this.$.modal.classList.add("hidden");
   }
 
   #closeMenu() {
-    this.$.menuItems.classList.add('hidden')
-    this.$.menuBtn.classList.remove('border')
+    this.$.menuItems.classList.add("hidden");
+    this.$.menuBtn.classList.remove("border");
 
     const icon = this.$.menuBtn.querySelector("i");
     icon.classList.add("fa-chevron-down");
     icon.classList.remove("fa-chevron-up");
-  } 
+  }
 
   #toggleMenu() {
     this.$.menuItems.classList.toggle("hidden");
@@ -92,6 +108,7 @@ export default class View {
 
     squareEl.replaceChildren(icon);
   }
+
 
   setTurnIndicator(player) {
     const icon = document.createElement("i");
