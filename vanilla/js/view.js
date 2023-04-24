@@ -35,6 +35,8 @@ export default class View {
       currentPlayer,
       status: {isComplete, winner},
     } = game
+
+    console.log(winner)
   
     this.#closeAll()
     this.#clearMoves()
@@ -46,7 +48,7 @@ export default class View {
     this.#initializeMoves(moves);
 
     if (isComplete) {
-      this.#openModal(winner ? `${winner.name} wins!` : "Tie!");
+      this.#openModal(winner ? `${winner.character} wins!` : "Tie!");
       return;
     }
 
@@ -168,7 +170,7 @@ export default class View {
 
     return elList;
   }
-  
+
 /**
    * Rather than registering event listeners on every child element in our Tic Tac Toe grid, we can
    * listen to the grid container and derive which square was clicked using the matches() function.
