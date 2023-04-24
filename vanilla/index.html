@@ -13,6 +13,7 @@
   </head>
   <body>
     <main>
+      <div class="game-grid-container">
       <div class="grid hidden" data-id="grid">
         
         <!-- Turn Indicator -->
@@ -58,7 +59,7 @@
             <span data-id="p2-wins">0 Wins</span>
           </div>
         </div>
-
+      </div>
     </main>
 
     <footer class="footer hidden" data-id="footer">
@@ -95,22 +96,48 @@
             <img src="./assets/Sonya.png" class="character-image" data-character="sonya" alt="Sonya">
           </div>
           <div class="character-image-container">
-            <img src="./assets/Sub-ZeroMK2.webp" class="character-image" data-character="sub-zero" alt="Sub Zero">
+            <img src="./assets/Sub-Zero-Mortal-Kombat-2-Bio.webp" class="character-image" data-character="sub-zero" alt="Sub Zero">
+          </div>
+          <div class="character-image-container">
+            <img src="./assets/johnny cage.png" class="character-image" data-character="johnny-cage" alt="Johnny Cage">
+          </div>
+          <div class="character-image-container">
+            <img src="./assets/Raiden-Mortal-Kombat-2-Bio.webp" class="character-image" data-character="raiden" alt="Raiden">
+          </div>
+          <div class="character-image-container">
+            <img src="./assets/kano.png" class="character-image" data-character="kano" alt="Kano">
           </div>
         </div>
       </div>
 
 
+      <!-- Game Start sound -->
       <audio id="game-start-sound" src="./audio/mk1-fight.mp3" preload="auto"></audio>
+
+      <!-- Character Selection sounds-->
       <audio id="scorpion-sound" src="./audio/mk1-scorpion.mp3" preload="auto"></audio>
       <audio id="sonya-sound" src="./audio/mk1-sonya.mp3" preload="auto"></audio>
       <audio id="sub-zero-sound" src="./audio/mk1-subzero.mp3" preload="auto"></audio>
       <audio id="liu-kang-sound" src="./audio/mk1-liu-kang.mp3" preload="auto"></audio>
+      <audio id="raiden-sound" src="./audio/mk1-raiden.mp3" preload="auto"></audio>
+      <audio id="johnny-cage-sound" src="./audio/mk1-johnny-cage.mp3" preload="auto"></audio>
+      <audio id="kano-sound" src="./audio/mk1-kano.mp3" preload="auto"></audio>
       
 
+      <!-- Character-specific win sounds -->
+      <audio id="sub-zero-wins-sound" src="./audio/mk1-sub-zero-wins.mp3" preload="auto"></audio>
+      <audio id="scorpion-wins-sound" src="./audio/mk1-scorpion-wins.mp3" preload="auto"></audio>
+      <audio id="sonya-wins-sound" src="./audio/mk1-sonya-wins.mp3" preload="auto"></audio>
+      <audio id="liu-kang-wins-sound" src="./audio/mk1-liu-kang-wins.mp3" preload="auto"></audio>
+      <audio id="raiden-wins-sound" src="./audio/mk1-raiden-wins.mp3" preload="auto"></audio>
+      <audio id="johnny-cage-wins-sound" src="./audio/mk1-johnny-cage-wins.mp3" preload="auto"></audio>
+      <audio id="kano-wins-sound" src="./audio/mk1-kano-wins.mp3" preload="auto"></audio>
+
+      <!-- Background Music -->
       <audio id="bg-music" loop>
         <source src="./audio/02 - In the Beginning.mp3" type="audio/mpeg"></source>
       </audio>
+
       <input id="volume-slider" type="range" min="0" max="1" step="0.01" value="1" />
 
       <button id="play-btn">Play</button>

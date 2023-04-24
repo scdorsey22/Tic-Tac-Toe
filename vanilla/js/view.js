@@ -35,8 +35,6 @@ export default class View {
       currentPlayer,
       status: {isComplete, winner},
     } = game
-
-    console.log(winner)
   
     this.#closeAll()
     this.#clearMoves()
@@ -49,6 +47,10 @@ export default class View {
 
     if (isComplete) {
       this.#openModal(winner ? `${winner.character} wins!` : "Tie!");
+      if (winner) {
+        const soundId = winner.character.toLowerCase().replace(" ", "-") + "-wins-sound";
+        this.#playSound(soundId);
+      }
       return;
     }
 
@@ -71,6 +73,12 @@ export default class View {
   }
 
   //DOM helper mehtods
+
+  #playSound(soundId) {
+    const sound = document.getElementById(soundId);
+    sound.currentTime = 0;
+    sound.play();
+  }
 
   #updateScoreboard(p1Wins, p2Wins, ties) {
     this.$.p1Wins.innerText = `${p1Wins} wins`;
