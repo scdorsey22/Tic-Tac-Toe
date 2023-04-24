@@ -46,7 +46,11 @@ export default class View {
     this.#initializeMoves(moves);
 
     if (isComplete) {
-      this.#openModal(winner ? `${winner.name} wins!` : "Tie!");
+      this.#openModal(winner ? `${winner.character} wins!` : "Tie!");
+      if (winner) {
+        const soundId = winner.character.toLowerCase().replace(" ", "-") + "-wins-sound";
+        this.#playSound(soundId);
+      }
       return;
     }
 
@@ -69,6 +73,12 @@ export default class View {
   }
 
   //DOM helper mehtods
+
+  #playSound(soundId) {
+    const sound = document.getElementById(soundId);
+    sound.currentTime = 0;
+    sound.play();
+  }
 
   #updateScoreboard(p1Wins, p2Wins, ties) {
     this.$.p1Wins.innerText = `${p1Wins} wins`;
@@ -168,7 +178,7 @@ export default class View {
 
     return elList;
   }
-  
+
 /**
    * Rather than registering event listeners on every child element in our Tic Tac Toe grid, we can
    * listen to the grid container and derive which square was clicked using the matches() function.
