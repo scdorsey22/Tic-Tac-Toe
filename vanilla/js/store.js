@@ -1,6 +1,7 @@
 
 
 const initialValue = {
+    selectedCharacters: [],
     currentGameMoves: [],
     history: {
         currentRoundGames: [],
@@ -79,6 +80,17 @@ export default class Store extends EventTarget {
         }
     }
 
+    saveSelectedCharacters(characters) {
+        const stateClone = structuredClone(this.#getState());
+
+        console.log(stateClone)
+      
+        stateClone.selectedCharacters = characters;
+      
+        this.#saveState(stateClone);
+      }
+      
+
     playerMove(squareId) {
         const stateClone = structuredClone(this.#getState())
 
@@ -114,9 +126,12 @@ export default class Store extends EventTarget {
         const stateClone = structuredClone(this.#getState())
         stateClone.history.allGames.push(...stateClone.history.currentRoundGames)
         stateClone.history.currentRoundGames = []
+        stateClone.selectedCharacters = []
 
         this.#saveState(stateClone)
     }
+
+
 
     #getState() {
         const item = window.localStorage.getItem(this.storageKey)
@@ -138,6 +153,12 @@ export default class Store extends EventTarget {
             default:
                 throw new Error('Invalid argument passed to saveState')
         }
+
+         // Save selected characters
+        if (newState.selectedCharacters) {
+            this.selectedCharacters = newState.selectedCharacters;
+        }
+
 
         window.localStorage.setItem(this.storageKey, JSON.stringify(newState));
         this.dispatchEvent(new Event('statechange'))

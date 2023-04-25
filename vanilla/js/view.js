@@ -74,6 +74,17 @@ export default class View {
 
   //DOM helper mehtods
 
+  showCharacterSelection() {
+    // Hide the game container
+    const gameContainer = this.#qs('[data-id="game-container"]');
+    gameContainer.classList.add('hidden');
+  
+    // Show the character selection container
+    const characterSelectionContainer = this.#qs('[data-id="character-selection-container"]');
+    characterSelectionContainer.classList.remove('hidden');
+  }
+  
+
   #playSound(soundId) {
     const sound = document.getElementById(soundId);
     sound.currentTime = 0;

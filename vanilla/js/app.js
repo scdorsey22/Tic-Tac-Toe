@@ -64,12 +64,15 @@ function playCharacterSound(character) {
 }
 
 function init() {
+  const view = new View();
+  const store = new Store("live-t3-storage-key", players);
+
+
   handleBackgroundMusic();
-  const gameGrid = document.querySelector('[data-id="grid"]');
+
+  const gameGrid = document.querySelector('[data-id="game-grid-container"]');
   const footer = document.querySelector('[data-id="footer"]');
-  const characterSelectionModal = document.querySelector(
-    '[data-id="character-selection-modal"]'
-  );
+  const characterSelectionModal = document.querySelector('[data-id="character-selection-modal"]');
   const characterImages = document.querySelectorAll(".character-image");
   const playerTurnText = document.getElementById("player-turn");
 
@@ -102,19 +105,12 @@ function init() {
     document.getElementsByClassName("character-image-container")
   ).forEach((container) => {
     container.addEventListener("click", (event) => {
-      console.log(
-        event.currentTarget.querySelector("img").getAttribute("data-character")
-      );
-      const selectedCharacter = event.currentTarget
+    const selectedCharacter = event.currentTarget
         .querySelector("img")
         .getAttribute("data-character");
-      console.log(selectedCharacter);
       playCharacterSound(selectedCharacter);
     });
   });
-
-  const view = new View();
-  const store = new Store("live-t3-storage-key", players);
 
   store.addEventListener("statechange", () => {
     view.render(store.game, store.stats);
