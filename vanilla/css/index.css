@@ -333,17 +333,19 @@ footer a {
     background-color: #f0f0f0;
     border: none;
     border-radius: 4px;
-    padding: 10px 15px;
+    padding: 10px 1px;
     font-size: 16px;
     cursor: pointer;
   }
   
   #mute-btn {
     right: 20px;
+    
   }
   
   #play-btn {
     right: 90px;
+    padding: 10px;
   }
   
   #volume-slider {

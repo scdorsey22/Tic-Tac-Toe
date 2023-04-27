@@ -18,6 +18,8 @@ export default class View {
     this.$.p2Wins = this.#qs('[data-id="p2-wins"]');
     this.$.ties = this.#qs('[data-id="ties"]');
     this.$.grid = this.#qs('[data-id="grid"]');
+    this.$.gameGrid = this.#qs('[data-id="game-grid-container"]')
+    this.$.characterSelectionContainer = this.#qs('[data-id="character-selection-modal"]')
 
     // Element lists
     this.$$.squares = this.#qsAll('[data-id="square"]');
@@ -73,6 +75,19 @@ export default class View {
   }
 
   //DOM helper mehtods
+
+  showGameBoardIfCharactersSelected() {
+    const store = new Store("live-t3-storage-key", []); // Initialize with the same key as your main store
+    const selectedCharacters = store.getSelectedCharacters();
+
+    if (selectedCharacters.length > 0) {
+      // Hide the character selection container
+      this.$.characterSelectionContainer.classList.add("hidden");
+
+      // Show the game container
+      this.$.gameGrid.classList.remove("hidden");
+    }
+  }
 
   showCharacterSelection() {
     // Hide the game container
