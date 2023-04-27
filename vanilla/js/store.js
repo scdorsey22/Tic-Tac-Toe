@@ -19,6 +19,10 @@ export default class Store extends EventTarget {
         this.players = players
     }
 
+    get selectedCharacters() {
+        return this.#getState().selectedCharacters
+    }
+
     get stats() {
 
         const state = this.#getState()
@@ -42,6 +46,8 @@ export default class Store extends EventTarget {
 
     get game() {
        const state = this.#getState()
+
+       console.log(this.players)
 
        const currentPlayer = this.players[state.currentGameMoves.length % 2];
 
@@ -153,12 +159,6 @@ export default class Store extends EventTarget {
             default:
                 throw new Error('Invalid argument passed to saveState')
         }
-
-         // Save selected characters
-        if (newState.selectedCharacters) {
-            this.selectedCharacters = newState.selectedCharacters;
-        }
-
 
         window.localStorage.setItem(this.storageKey, JSON.stringify(newState));
         this.dispatchEvent(new Event('statechange'))
