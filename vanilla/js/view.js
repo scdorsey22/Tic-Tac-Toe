@@ -20,6 +20,7 @@ export default class View {
     this.$.grid = this.#qs('[data-id="grid"]');
     this.$.gameGrid = this.#qs('[data-id="game-grid-container"]')
     this.$.characterSelectionContainer = this.#qs('[data-id="character-selection-modal"]')
+    this.$.footer = this.#qs('[data-id="footer"]');
 
     // Element lists
     this.$$.squares = this.#qsAll('[data-id="square"]');
@@ -31,6 +32,8 @@ export default class View {
   }
 
   render(game, stats) {
+  
+ 
     const {playerWithStats, ties} = stats
     const {
       moves,
@@ -76,29 +79,20 @@ export default class View {
 
   //DOM helper mehtods
 
-  showGameBoardIfCharactersSelected() {
-    const store = new Store("live-t3-storage-key", []); // Initialize with the same key as your main store
-    const selectedCharacters = store.getSelectedCharacters();
 
-    if (selectedCharacters.length > 0) {
-      // Hide the character selection container
+  showGameBoardIfCharactersSelected(store) {
+    console.log(store.selectedCharacters)
+    const selectedCharacters = store.selectedCharacters
+    if (selectedCharacters && selectedCharacters.length === 2) {
       this.$.characterSelectionContainer.classList.add("hidden");
-
-      // Show the game container
       this.$.gameGrid.classList.remove("hidden");
+      this.$.footer.classList.remove("hidden");
+    } else {
+      this.$.characterSelectionContainer.classList.remove("hidden");
+      this.$.gameGrid.classList.add("hidden");
+      this.$.footer.classList.add("hidden");
     }
   }
-
-  showCharacterSelection() {
-    // Hide the game container
-    const gameContainer = this.#qs('[data-id="game-container"]');
-    gameContainer.classList.add('hidden');
-  
-    // Show the character selection container
-    const characterSelectionContainer = this.#qs('[data-id="character-selection-container"]');
-    characterSelectionContainer.classList.remove('hidden');
-  }
-  
 
   #playSound(soundId) {
     const sound = document.getElementById(soundId);
