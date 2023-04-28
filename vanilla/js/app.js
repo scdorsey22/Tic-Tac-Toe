@@ -89,11 +89,10 @@ function init() {
       } else if (!player2Character) {
         player2Character = character;
         event.target.classList.add("selected");
+        view.showGameBoardIfCharactersSelected()
         setTimeout(() => {
-          characterSelectionModal.classList.add("hidden");
-          gameGrid.classList.remove("hidden");
-          footer.classList.remove("hidden");
           playSound("game-start-sound");
+          store.saveSelectedCharacters([player1Character, player2Character]);
           setPlayer1Character(player1Character);
           setPlayer2Character(player2Character);
         }, 1000);
@@ -121,6 +120,7 @@ function init() {
     view.render(store.game, store.stats);
   });
 
+  view.showGameBoardIfCharactersSelected(store);
   view.render(store.game, store.stats);
 
   view.bindGameResetEvent((event) => {
@@ -129,6 +129,10 @@ function init() {
 
   view.bindNewRoundEvent((event) => {
     store.newRound();
+    view.showGameBoardIfCharactersSelected()
+    setPlayer1Character(null)
+    setPlayer2Character(null)
+    playerTurnText.textContent = "Player 1, choose your character";
   });
 
   view.bindPlayerMoveEvent((square) => {

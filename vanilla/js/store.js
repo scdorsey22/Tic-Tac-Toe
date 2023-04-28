@@ -20,6 +20,8 @@ export default class Store extends EventTarget {
     }
 
     get selectedCharacters() {
+
+        console.log(this.#getState())
         return this.#getState().selectedCharacters
     }
 
