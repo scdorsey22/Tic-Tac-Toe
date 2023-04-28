@@ -80,9 +80,8 @@ export default class View {
   //DOM helper mehtods
 
 
-  showGameBoardIfCharactersSelected(store) {
-    console.log(store.selectedCharacters)
-    const selectedCharacters = store.selectedCharacters
+  showGameBoardIfCharactersSelected(selectedCharacters) {
+
     if (selectedCharacters && selectedCharacters.length === 2) {
       this.$.characterSelectionContainer.classList.add("hidden");
       this.$.gameGrid.classList.remove("hidden");

@@ -21,8 +21,9 @@ export default class Store extends EventTarget {
 
     get selectedCharacters() {
 
-        console.log(this.#getState())
-        return this.#getState().selectedCharacters
+        const state = this.#getState()
+
+        return state.selectedCharacters
     }
 
     get stats() {
@@ -48,8 +49,6 @@ export default class Store extends EventTarget {
 
     get game() {
        const state = this.#getState()
-
-       console.log(this.players)
 
        const currentPlayer = this.players[state.currentGameMoves.length % 2];
 
@@ -90,8 +89,6 @@ export default class Store extends EventTarget {
 
     saveSelectedCharacters(characters) {
         const stateClone = structuredClone(this.#getState());
-
-        console.log(stateClone)
       
         stateClone.selectedCharacters = characters;
       
