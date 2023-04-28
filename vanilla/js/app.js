@@ -58,7 +58,6 @@ function playSound(soundId) {
 }
 
 function playCharacterSound(character) {
-  console.log(character);
   const soundId = character.toLowerCase().replace(" ", "-") + "-sound";
   playSound(soundId);
 }
@@ -89,9 +88,11 @@ function init() {
       } else if (!player2Character) {
         player2Character = character;
         event.target.classList.add("selected");
-        view.showGameBoardIfCharactersSelected()
         setTimeout(() => {
           playSound("game-start-sound");
+          gameGrid.classList.remove('hidden')
+          footer.classList.remove('hidden')
+          characterSelectionModal.classList.add('hidden')
           store.saveSelectedCharacters([player1Character, player2Character]);
           setPlayer1Character(player1Character);
           setPlayer2Character(player2Character);
@@ -120,7 +121,7 @@ function init() {
     view.render(store.game, store.stats);
   });
 
-  view.showGameBoardIfCharactersSelected(store);
+  view.showGameBoardIfCharactersSelected(store.selectedCharacters);
   view.render(store.game, store.stats);
 
   view.bindGameResetEvent((event) => {
@@ -129,9 +130,12 @@ function init() {
 
   view.bindNewRoundEvent((event) => {
     store.newRound();
-    view.showGameBoardIfCharactersSelected()
-    setPlayer1Character(null)
-    setPlayer2Character(null)
+    player1Character = null;
+    player2Character = null;
+    view.showGameBoardIfCharactersSelected(store.selectedCharacters);
+    characterImages.forEach((img) => {
+      img.classList.remove("selected");
+    });
     playerTurnText.textContent = "Player 1, choose your character";
   });
 
