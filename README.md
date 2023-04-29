@@ -1,4 +1,4 @@
-# Tic-Tac-Toe Character Edition
+# Tic-Tac-Toe Mortal Kombat Edition
 
 This is a modern take on the classic Tic-Tac-Toe game, allowing players to select unique characters for their X's and O's. The game features a responsive UI, dynamic character selection, and the ability to store game progress and character choices in local storage. The application is designed to showcase skills in front-end web development, including HTML, CSS, and JavaScript.
 
@@ -9,8 +9,7 @@ This is a modern take on the classic Tic-Tac-Toe game, allowing players to selec
 - [Usage](#usage)
 - [Technologies Used](#technologies-used)
 - [Demo](#demo)
-- [Contributing](#contributing)
-- [License](#license)
+
 
 ## Features
 
@@ -29,16 +28,10 @@ To set up the project on your local machine, follow these steps:
 1. Clone the repository:
 
 \```
-git clone https://github.com/yourusername/tic-tac-toe-character-edition.git
+git clone https://github.com/scdorsey22/tic-tac-toe.git
 \```
 
-2. Change into the project directory:
-
-\```
-cd tic-tac-toe-character-edition
-\```
-
-3. Open the `index.html` file in your browser, or use a live server extension in your preferred code editor to launch the application.
+2. Open the `index.html` file in your browser, or use a live server extension in your preferred code editor to launch the application.
 
 ## Usage
 
