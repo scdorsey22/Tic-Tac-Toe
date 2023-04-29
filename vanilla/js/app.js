@@ -8,14 +8,14 @@ const players = [
     name: "Player 1",
     iconClass: "fa-x",
     colorClass: "turquoise",
-    character: null,
+    // character: null,
   },
   {
     id: 2,
     name: "Player 2",
     iconClass: "fa-o",
     colorClass: "yellow",
-    character: null,
+    // character: null,
   },
 ];
 
@@ -94,8 +94,8 @@ function init() {
           footer.classList.remove('hidden')
           characterSelectionModal.classList.add('hidden')
           store.saveSelectedCharacters([player1Character, player2Character]);
-          setPlayer1Character(player1Character);
-          setPlayer2Character(player2Character);
+          // setPlayer1Character(player1Character);
+          // setPlayer2Character(player2Character);
         }, 1000);
       }
     });
@@ -113,20 +113,24 @@ function init() {
   });
 
   store.addEventListener("statechange", () => {
-    view.render(store.game, store.stats);
+    view.render(store.game, store.stats, store.selectedCharacters);
   });
 
   window.addEventListener("storage", () => {
     console.log("State changed from another tab");
-    view.render(store.game, store.stats);
+    view.render(store.game, store.stats, store.selectedCharacters);
   });
 
+
+  console.log(store.selectedCharacters)
+
   view.showGameBoardIfCharactersSelected(store.selectedCharacters);
-  view.render(store.game, store.stats);
+  view.render(store.game, store.stats, );
 
   view.bindGameResetEvent((event) => {
     store.reset();
   });
+
 
   view.bindNewRoundEvent((event) => {
     store.newRound();

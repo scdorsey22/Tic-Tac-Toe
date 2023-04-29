@@ -31,8 +31,10 @@ export default class View {
     });
   }
 
-  render(game, stats) {
+  render(game, stats, selectedCharacters) {
   
+
+    console.log(stats)
  
     const {playerWithStats, ties} = stats
     const {
@@ -50,7 +52,9 @@ export default class View {
     )
     this.#initializeMoves(moves);
 
+  
     if (isComplete) {
+      console.log(winner)
       this.#openModal(winner ? `${winner.character} wins!` : "Tie!");
       if (winner) {
         const soundId = winner.character.toLowerCase().replace(" ", "-") + "-wins-sound";

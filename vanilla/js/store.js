@@ -31,13 +31,14 @@ export default class Store extends EventTarget {
         const state = this.#getState()
         
         return {
-            playerWithStats: this.players.map((player) => {
+            playerWithStats: this.players.map((player, index) => {
                 const wins = state.history.currentRoundGames.filter(
                     (game) => game.status.winner?.id === player.id
                     ).length;
 
                     return {
                         ...player,
+                        character: state.selectedCharacters[index],
                         wins,
                     }
             }),
@@ -72,7 +73,12 @@ export default class Store extends EventTarget {
 
                 for (const patter of winningPatterns) {
                     if (patter.every(v => selectedSquareIds.includes(v))) {
-                        winner = player
+                        const winnerIndex = this.players.findIndex(p => p.id === player.id);
+                        const winnerCharacter = state.selectedCharacters[winnerIndex];
+                        winner = {
+                            ...player,
+                            character: winnerCharacter,
+                        }
                     }
                 }
         }
