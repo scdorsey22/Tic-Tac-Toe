@@ -21,12 +21,29 @@ const players = [
 
 function handleBackgroundMusic() {
   const bgMusic = document.getElementById("bg-music");
-  const muteBtn = document.getElementById("mute-btn");
   const playBtn = document.getElementById("play-btn");
+  const pauseBtn = document.getElementById("pause-btn");
+  const muteBtn = document.getElementById("mute-btn");
+  const nextBtn = document.getElementById("next-btn");
   const volumeSlider = document.getElementById("volume-slider");
+
+  const songs = [
+    "/Users/sugashane/Development/code/Tic-Tac-Toe/audio/Mortal Kombat.mp3",
+    "/Users/sugashane/Development/code/Tic-Tac-Toe/audio/02 - In the Beginning.mp3",
+  ];
+  
+  let currentSongIndex = 0;
 
   playBtn.addEventListener("click", () => {
     bgMusic.play();
+    playBtn.hidden = true;
+    pauseBtn.hidden = false;
+  });
+
+  pauseBtn.addEventListener("click", () => {
+    bgMusic.pause();
+    playBtn.hidden = false;
+    pauseBtn.hidden = true;
   });
 
   volumeSlider.addEventListener("input", () => {
@@ -41,7 +58,19 @@ function handleBackgroundMusic() {
       muteBtn.textContent = "Mute";
     }
   });
+
+  nextBtn.addEventListener("click", () => {
+    currentSongIndex++;
+    if (currentSongIndex >= songs.length) {
+      currentSongIndex = 0;
+    }
+    bgMusic.src = songs[currentSongIndex];
+    bgMusic.play();
+    playBtn.hidden = true;
+    pauseBtn.hidden = false;
+  });
 }
+
 
 function setPlayer1Character(character) {
   players[0].character = character;
