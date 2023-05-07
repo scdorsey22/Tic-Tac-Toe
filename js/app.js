@@ -1,6 +1,7 @@
 import Store from "./store.js";
 import View from "./view.js";
 
+
 // Our players "config" - defines icons, colors, name, etc.
 const players = [
   {
@@ -28,10 +29,10 @@ function handleBackgroundMusic() {
   const volumeSlider = document.getElementById("volume-slider");
 
   const songs = [
-    "/Users/sugashane/Development/code/Tic-Tac-Toe/audio/Mortal Kombat.mp3",
-    "/Users/sugashane/Development/code/Tic-Tac-Toe/audio/02 - In the Beginning.mp3",
+    "../audio/Mortal Kombat.mp3",
+    "../audio/02 - In the Beginning.mp3",
   ];
-  
+
   let currentSongIndex = 0;
 
   playBtn.addEventListener("click", () => {
@@ -64,6 +65,7 @@ function handleBackgroundMusic() {
     if (currentSongIndex >= songs.length) {
       currentSongIndex = 0;
     }
+    console.log(songs)
     bgMusic.src = songs[currentSongIndex];
     bgMusic.play();
     playBtn.hidden = true;

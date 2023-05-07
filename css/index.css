@@ -7,11 +7,7 @@
 
 
 :root {
-  /* --dark-gray: #1a2a32;
-  --gray: #2e4756;
-  --turquoise: #3cc4bf;
-  --yellow: #f2b147;
-  --light-gray: #d3d3d3; */
+
   --dark-gray: #1a2a32;
   --gray: #2e4756;
   --turquoise: #1f7dd6; /* Change to a shade of blue for Sub-Zero */
@@ -142,7 +138,7 @@ button:hover {
 }
 
 .turn i {
-  font-size: 1.8rem;
+  font-size: 3rem;
   margin-left: 10px;
   animation: 0.6s ease-in-out turn-icon-animation;
 }
@@ -176,7 +172,7 @@ button:hover {
     z-index: 10;
     top: 60px;
     right: 0;
-    background-color: #203139;
+    background-color: rgba(211, 211, 211, 0.07);
     border-radius: 2px;
     padding: 10px;
   }
